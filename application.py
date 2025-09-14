@@ -5,7 +5,13 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData , PredictPipeline
 
-application=Flask(__name__)
+## name of the file is application instead of app.py
+## because AWS Elastic Beanstalk will look only for application.py
+## and if it finds app.py deployment will give error
+## so we have created the file by name application and then internally we have assigned it to app variable
+## to run as per Flask
+ 
+application=Flask(__name__) 
 
 app = application
 

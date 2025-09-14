@@ -94,7 +94,7 @@ class DataTransformation:
 
             logging.info(f"Applying preprocessing object on training dataframe and testing dataframe")
             
-            #model fitting on train and test data // pickle file
+            #Tranformation on train and test data (Z score)
             input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
 
@@ -108,7 +108,7 @@ class DataTransformation:
 
             logging.info(f"saved preprocessing object.")    
             
-            #save the pickle file
+            #save the preprocessor (column transformer) pickle file
             save_object(   
                         file_path = self.data_transformation_config.preprocessor_obj_file_path,
                         obj = preprocessing_obj

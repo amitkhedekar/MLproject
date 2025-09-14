@@ -5,6 +5,7 @@ import pandas as pd
 from src.exception import CustomException
 import dill
 from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path , obj):
     '''
@@ -20,13 +21,19 @@ def save_object(file_path , obj):
     
 ########################################################################
 
-def evaluate_models(X_train , Y_train, X_test, Y_test, models):
+def evaluate_models(X_train , Y_train, X_test, Y_test, models, param):
     try:
         report = {}
 
         for i in range(len(list(models))): #iteration for each and every models
             model = list(models.values())[i]
+            para = param[list(models.keys())[i]]
 
+            gs = GridSearchCV(model, para, cv=3 )
+            gs.fit(X_train, Y_train)
+            
+            #fit the best hyperparameter for model
+            model.set_params(**gs.best_params_)
             model.fit(X_train, Y_train) #fit the model
             
             y_train_pred = model.predict(X_train)
